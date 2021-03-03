@@ -3,7 +3,6 @@ import { sign } from 'jsonwebtoken';
 
 import firebase from '../../../config/firebase';
 import { cors } from '../../../lib/initMiddleware';
-import { handleCreateUser } from '../../../database/controllers/User';
 
 export default async (req, res) => {
   await cors(req, res);
@@ -24,8 +23,6 @@ export default async (req, res) => {
       subject: user.uid,
       expiresIn: '1d',
     };
-
-    await handleCreateUser(user.uid);
 
     const token = sign(userData, process.env.JWT_SECRET, config);
     res.statusCode = StatusCodes.OK;

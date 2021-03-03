@@ -2,8 +2,33 @@ import StatusCodes from 'http-status-codes';
 import { verify } from 'jsonwebtoken';
 
 import { cors } from '../../../lib/initMiddleware';
-import { handleCreateProject } from '../../../database/controllers/Project';
-import { handleGetUser } from '../../../database/controllers/User';
+import {
+  handleGetOwnProjects, handleCreateProject, handleUpdateProject, handleDeleteProject,
+} from '../../../database/controllers/Project';
+
+const GET = async (req) => {
+  const { query } = req;
+  const data = await handleGetOwnProjects(query);
+  return data;
+};
+
+const POST = async (req) => {
+  const { body } = req;
+  const data = await handleCreateProject(body);
+  return data;
+};
+
+const PUT = async (req) => {
+  const { query, body } = req;
+  const data = await handleUpdateProject(query, body);
+  return data;
+};
+
+const DELETE = async (req) => {
+  const { query } = req;
+  const data = await handleDeleteProject(query);
+  return data;
+};
 
 export default async (req, res) => {
   await cors(req, res);
@@ -20,16 +45,27 @@ export default async (req, res) => {
   try {
     switch (req.method) {
       case 'GET': {
-        const { uid } = req.query;
-        const { projects } = await handleGetUser(uid);
+        const projects = await GET(req);
         res.statusCode = StatusCodes.OK;
         res.end(JSON.stringify({ projects }));
         return;
       }
       case 'POST': {
-        const data = await handleCreateProject();
+        const response = await POST(req);
         res.statusCode = StatusCodes.OK;
-        res.end(JSON.stringify({ data }));
+        res.end(JSON.stringify({ response }));
+        return;
+      }
+      case 'PUT': {
+        const response = await PUT(req);
+        res.statusCode = StatusCodes.OK;
+        res.end(JSON.stringify({ response }));
+        return;
+      }
+      case 'DELETE': {
+        const response = await DELETE(req);
+        res.statusCode = StatusCodes.OK;
+        res.end(JSON.stringify({ response }));
         return;
       }
       default:

@@ -7,5 +7,5 @@ const initMiddleware = (middleware) => (req, res) => new Promise((resolve, rejec
   });
 });
 
-const methods = ['GET', 'POST', 'OPTIONS'];
+const methods = ['GET', 'POST', 'PUT', 'DELETE'];
 export const cors = initMiddleware(Cors({ methods }));
