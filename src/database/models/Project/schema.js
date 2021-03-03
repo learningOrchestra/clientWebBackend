@@ -1,7 +1,5 @@
 import mongoose from '../../../config/mongoose';
 
-import FileSchema from '../File/schema';
-
 const { Schema } = mongoose;
 
 const ProjectSchema = new Schema({
@@ -9,6 +7,30 @@ const ProjectSchema = new Schema({
     type: String,
     require: true,
   },
+  color: {
+    type: String,
+    require: true,
+  },
+  paths: [{
+    _id: {
+      type: String,
+      require: true,
+    },
+    index: {
+      type: String,
+      require: true,
+    },
+    name: {
+      type: String,
+      require: true,
+    },
+  }],
+  projects: [{ type: String }],
+  files: [{ type: String }],
+  shared: [{
+    id: { type: String },
+    access: { type: String },
+  }],
   createdBy: {
     type: String,
     require: true,
@@ -16,13 +38,6 @@ const ProjectSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-});
-
-ProjectSchema.add({
-  data: {
-    projects: [ProjectSchema],
-    files: [FileSchema],
   },
 });
 
