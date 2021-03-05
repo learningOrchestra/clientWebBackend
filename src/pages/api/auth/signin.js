@@ -12,6 +12,8 @@ export default async (req, res) => {
     const { user } = await firebase.auth()
       .signInWithEmailAndPassword(email, password);
 
+    console.log(user.uid);
+
     const userData = {
       id: user.uid,
       name: user.displayName,
