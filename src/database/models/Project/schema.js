@@ -26,7 +26,11 @@ const ProjectSchema = new Schema({
     },
   }],
   projects: [{ type: String }],
-  files: [{ type: String }],
+  files: [{
+    _id: { type: String },
+    name: { type: String },
+    type: { type: String },
+  }],
   shared: [{
     id: { type: String },
     access: { type: String },

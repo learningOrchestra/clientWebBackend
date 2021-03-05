@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
+  apiKey: process.env.FIREBASE_CREDENCIAL,
   authDomain: 'client-web-auth.firebaseapp.com',
   projectId: 'client-web-auth',
   storageBucket: 'client-web-auth.appspot.com',
