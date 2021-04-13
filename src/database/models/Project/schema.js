@@ -1,48 +1,20 @@
-import mongoose from '../../../config/mongoose';
+import mongoose from '../../../config/mongoose.config';
 
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
 const ProjectSchema = new Schema({
-  name: {
-    type: String,
-    require: true,
-  },
-  color: {
-    type: String,
-    require: true,
-  },
-  paths: [{
-    _id: {
-      type: String,
-      require: true,
-    },
-    index: {
-      type: String,
-      require: true,
-    },
-    name: {
-      type: String,
-      require: true,
-    },
-  }],
-  projects: [{ type: String }],
-  files: [{
-    _id: { type: String },
-    name: { type: String },
-    type: { type: String },
-  }],
+  name: {type: String, require: true},
+  color: {type: String, require: true},
   shared: [{
-    id: { type: String },
-    access: { type: String },
+    _id: {type: String},
+    access: {type: String},
   }],
-  createdBy: {
-    type: String,
-    require: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdBy: {type: String, require: true},
+  createdAt: {type: Date, default: Date.now},
+});
+
+ProjectSchema.add({
+  projects: [ProjectSchema],
 });
 
 export default ProjectSchema;
